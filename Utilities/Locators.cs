@@ -52,4 +52,15 @@ public class Locators
         public static By PaymentOptions = By.XPath("//h1[contains(text(),'My Payment Options')]");
         public static By AddCreditCardButton = By.XPath("//mat-panel-description[contains(text(), 'Add a credit or debit card')]");
     }
+    public static class RegistrationPage
+    {
+        public static readonly By EmailField = By.Id("emailControl");
+        public static readonly By PasswordField = By.Id("passwordControl");
+        public static readonly By RepeatPasswordField = By.Id("repeatPasswordControl");
+        public static readonly By SecurityQuestionDropdown = By.XPath("//*[@id='mat-select-0']"); // Adjust XPath if needed
+        public static readonly By SecurityAnswerField = By.Id("securityAnswerControl");
+        public static readonly By TermsCheckbox = By.Id("termsCheckbox"); // Assuming a checkbox for terms
+        public static readonly By RegisterButton = By.XPath("//*[@id='registerButton']/span[1]"); // Consistent XPath
+        public static readonly By Snackbar = By.ClassName("mat-simple-snack-bar-content"); // Wait for snackbar invisibility
+    }
 }

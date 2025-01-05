@@ -45,10 +45,10 @@ public class Task3Test : BaseTest
         homePage.DismissWelcomeBannerIfPresent();
         Common.CloseSnackbarIfPresent(Driver);
 
-        // Step 2: Fill the registration form with self-generated information
-        string email = "testuser" + DateTime.Now.Ticks + "@example.com"; // Self-generated email
-        string password = "TestPassword123!"; // Self-generated password
-        string securityAnswer = "MyAnswer"; // Example security answer
+        // Step 2: Fill the registration form with test data
+        string email = TestData.Registration.GenerateUniqueEmail();
+        string password = TestData.Registration.ValidPassword;
+        string securityAnswer = TestData.Registration.SecurityAnswer;
 
         // Fill the email field
         registrationPage.ClickAndSendKeys(By.Id("emailControl"), email);

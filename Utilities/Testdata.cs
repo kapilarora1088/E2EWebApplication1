@@ -14,4 +14,17 @@ public class TestData
     public const string City = "New York";
     public const string State = "NY";
     public const string CardHolderName = "John Doe";
+
+    public static class Registration
+    {
+        public static string GenerateUniqueEmail()
+        {
+            return $"testuser{DateTime.Now.Ticks}@example.com";
+        }
+
+        public static string ValidPassword = "TestPassword123!";
+        public static string InvalidPassword = "weakpassword"; // Example invalid password
+        public static string SecurityAnswer = "MyAnswer"; // Example security answer
+    }
 }
+
