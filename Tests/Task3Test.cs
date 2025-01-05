@@ -5,6 +5,7 @@ using NUnit.Framework.Legacy;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using Utilities;
 
 
 [TestFixture]
@@ -16,6 +17,7 @@ public class Task3Test : BaseTest
         //navigates to user registration page
         Driver.Navigate().GoToUrl(TestData.BaseUrl);
         homePage.DismissWelcomeBannerIfPresent();
+        Common.CloseSnackbarIfPresent(Driver);
         registrationPage.NavigateToRegistrationPage();
         ClassicAssert.IsTrue(Driver.Url.Contains("register"));
     }
@@ -27,21 +29,12 @@ public class Task3Test : BaseTest
         adding any values on it this must trigger a validation message.*/
         Driver.Navigate().GoToUrl(TestData.BaseUrl + "/#/register");
         homePage.DismissWelcomeBannerIfPresent();
-
+        Common.CloseSnackbarIfPresent(Driver);
         registrationPage.FillEmptyForm();
         //validate the error messages
         registrationPage.AreValidationMessagesDisplayed();
     }
 
-    /*    [Test]
-        public void TestRegistrationAndShowPasswordAdvice()
-        {
-
-
-            homePage.DismissWelcomeBannerIfPresent();
-            registrationPage.RegisterWithValidData(TestData.Username, TestData.Password);
-            ClassicAssert.IsTrue(Driver.Url.Contains("login"));
-        }*/
 
 
     [Test]
@@ -50,7 +43,7 @@ public class Task3Test : BaseTest
         // Step 1: Navigate to the registration page
         Driver.Navigate().GoToUrl(TestData.BaseUrl + "/#/register");
         homePage.DismissWelcomeBannerIfPresent();
-
+        Common.CloseSnackbarIfPresent(Driver);
 
         // Step 2: Fill the registration form with self-generated information
         string email = "testuser" + DateTime.Now.Ticks + "@example.com"; // Self-generated email

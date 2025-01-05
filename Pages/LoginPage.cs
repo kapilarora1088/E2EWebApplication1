@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using Utilities;
 
@@ -25,6 +26,10 @@ namespace YourProject.Pages
             // Wait for the password field and input the password
             var passwordField = _driver.WaitForElementClickable(By.Id("password"), 10);
             passwordField.SendKeys(password);
+
+            // //select the address
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.XPath("//div[contains(@class,'mat-simple-snackbar')]")));
 
             // Wait for the Login button and click it
             var loginButton = _driver.WaitForElementClickable(By.Id("loginButton"), 10);

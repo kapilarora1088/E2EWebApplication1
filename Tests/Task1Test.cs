@@ -1,6 +1,7 @@
 ﻿
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using Utilities;
 
 [TestFixture]
 public class Task1Test : BaseTest
@@ -12,7 +13,9 @@ public class Task1Test : BaseTest
         var homePage = new HomePage(Driver);
 
         homePage.DismissWelcomeBannerIfPresent();
+        Common.CloseSnackbarIfPresent(Driver);
         homePage.ScrollToBottom();
+        
         homePage.ChangeItemsPerPage();
 
         int numberOfItems = homePage.GetNumberOfItemsOnPage();

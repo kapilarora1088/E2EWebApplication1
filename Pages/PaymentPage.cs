@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Support.UI;
 
 using Utilities;
+using static Locators;
 
 namespace YourProject.Pages
 {
@@ -16,23 +17,24 @@ namespace YourProject.Pages
 
         public void AddCreditCardDetails(string name)
         {
-           
+
             // Enter Name
-            var nameField = _driver.WaitForElementClickable(By.XPath("//mat-label[text()='Name']"));
-            nameField.SendKeys(name);
+            Common.EnterText(_driver, By.XPath("//*[@id='mat-input-10']"),name); ;
+    
 
             // Generate random 16-digit card number
             var cardNumber = GenerateRandomCardNumber();
-            var cardNumberField = _driver.WaitForElementClickable(By.XPath("//mat-label[text()='Card Number']"));
-            cardNumberField.SendKeys(cardNumber);
+            Common.EnterText(_driver, By.XPath("//*[@id='mat-input-11']"), cardNumber); ;
+
 
             // Select Month
-            var monthDropdown = _driver.WaitForElementClickable(By.XPath("//mat-label[text()='Expiry Month']"));
+            //Common.WaitForElementClickable(_driver, By.XPath("//*[@id='mat-input-12']");
+            var monthDropdown = _driver.WaitForElementClickable(By.XPath("//*[@id='mat-input-12']"));
             var selectMonth = new SelectElement(monthDropdown);
             selectMonth.SelectByValue("5");
 
             // Select Year
-            var yearDropdown = _driver.WaitForElementClickable(By.XPath("//mat-label[text()='Expiry Year']"));
+            var yearDropdown = _driver.WaitForElementClickable(By.XPath("//*[@id='mat-input-13']"));
             var selectYear = new SelectElement(yearDropdown);
             selectYear.SelectByValue("2080");
 

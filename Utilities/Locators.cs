@@ -2,7 +2,7 @@
 
 public class Locators
 {
-    public static class Common
+    public static class CommonSnackBar
     {
         public static By SuccessPopup = By.CssSelector(".mat-simple-snack-bar-content");
     }
@@ -12,6 +12,18 @@ public class Locators
         public static By AddToBasket(int index) => By.XPath($"//mat-grid-tile[contains(@class, 'ng-star-inserted')][{index}]//button[@aria-label='Add to Basket']");
         public static By CartNumber = By.XPath("//span[@class='fa-layers-counter fa-layers-top-right fa-3x warn-notification']");
         public static By FirstItem = By.XPath("//div[text()=' Apple Juice (1000ml) ']");
+    }
+
+    public static class Popup
+    {
+        public static readonly By Container = By.CssSelector("mat-dialog-container#mat-dialog-1");
+        public static readonly By Image = By.CssSelector("mat-dialog-container#mat-dialog-1 img");
+        public static readonly By CloseButton = By.XPath("//button[@aria-label='Close Dialog']"); // Consistent XPath
+    }
+
+    public static class Review
+    {
+        public static readonly By ReviewButton = By.XPath("//*[@id='mat-expansion-panel-header-0']"); // Consistent XPath
     }
 
     public static class BasketPage

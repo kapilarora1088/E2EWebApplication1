@@ -13,6 +13,7 @@ public class BaseTest
     protected Address add;
     protected PaymentPage _paymentPage;
     protected LoginPage loginPage;  
+    protected BasketPage basketPage;
 
     [SetUp]
     public void Setup()
@@ -25,6 +26,7 @@ public class BaseTest
         add=new Address(Driver);
         _paymentPage =new PaymentPage(Driver);
         loginPage = new LoginPage(Driver);
+        basketPage = new BasketPage(Driver);
     }
 
     [TearDown]

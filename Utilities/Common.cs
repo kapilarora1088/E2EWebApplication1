@@ -41,5 +41,32 @@ namespace Utilities
             WaitForElementToBeVisible(driver, locator, timeoutInSeconds).SendKeys(text);
         }
 
+        public static string WaitAndGetText(IWebDriver driver, By locator, int timeoutInSeconds = 10)
+        {
+           return WaitForElementToBeVisible(driver, locator, timeoutInSeconds).Text;
+        }
+
+
+        public static void CloseSnackbarIfPresent(IWebDriver driver)
+        {
+            try
+            {
+                // Explicit wait for the snackbar message to appear (adjust timeout as needed)
+                new WebDriverWait(driver, TimeSpan.FromSeconds(20))
+                .Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("mat-simple-snack-bar-content")));
+
+                // Find and click the close button (assuming it has a class or other identifying attribute)
+                /*IWebElement closeButton = driver.FindElement(By.XPath("//*[@id='cdk-overlay-6']/snack-bar-container/div/div/simple-snack-bar/button"));
+                closeButton.Click();*/
+            }
+            catch (NoSuchElementException)
+            {
+                // Snackbar or close button not found, do nothing
+            }
+            catch (WebDriverTimeoutException)
+            {
+                // Snackbar did not appear within the timeout, do nothing
+            }
+        }
     }
 }
