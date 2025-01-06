@@ -15,15 +15,13 @@ public class Task4Test : BaseTest
     [Test]
     public void Test_AddProductsToCartAndCheckout()
     {
-        Driver.Navigate().GoToUrl("https://juice-shop.herokuapp.com");
-        
-
+        Driver.Navigate().GoToUrl(TestData.BaseUrl);
         // Dismiss any alerts that might appear
         homePage.DismissWelcomeBannerIfPresent();
-
+        Common.DisMissCookieButtonPresent(Driver);
         registrationPage.NavigateToLoginPage();
 
-        loginPage.Login("test12@gmail.com", "Dubai@123");
+        loginPage.Login("test13@gmail.com", "Dubai@123");
 
         // Step 2: Add five different products to the basket and assert cart number changes
         for (int i = 1; i <= 5; i++)

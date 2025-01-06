@@ -18,6 +18,7 @@ public class Task3Test : BaseTest
         Driver.Navigate().GoToUrl(TestData.BaseUrl);
         homePage.DismissWelcomeBannerIfPresent();
         Common.CloseSnackbarIfPresent(Driver);
+        Common.DisMissCookieButtonPresent(Driver);
         registrationPage.NavigateToRegistrationPage();
         ClassicAssert.IsTrue(Driver.Url.Contains("register"));
     }
@@ -30,6 +31,7 @@ public class Task3Test : BaseTest
         Driver.Navigate().GoToUrl(TestData.BaseUrl + "/#/register");
         homePage.DismissWelcomeBannerIfPresent();
         Common.CloseSnackbarIfPresent(Driver);
+        Common.DisMissCookieButtonPresent(Driver);
         registrationPage.FillEmptyForm();
         //validate the error messages
         registrationPage.AreValidationMessagesDisplayed();
@@ -44,48 +46,33 @@ public class Task3Test : BaseTest
         Driver.Navigate().GoToUrl(TestData.BaseUrl + "/#/register");
         homePage.DismissWelcomeBannerIfPresent();
         Common.CloseSnackbarIfPresent(Driver);
+        Common.DisMissCookieButtonPresent(Driver);
 
         // Step 2: Fill the registration form with test data
         string email = TestData.Registration.GenerateUniqueEmail();
         string password = TestData.Registration.ValidPassword;
         string securityAnswer = TestData.Registration.SecurityAnswer;
 
-        // Fill the email field
-        registrationPage.ClickAndSendKeys(By.Id("emailControl"), email);
+        //Step 3: Fill the form field with valid details and open toggle for password
+        registrationPage.FillRegistrationForm(email, password, securityAnswer);
 
-        // Fill the password field
-        registrationPage.ClickAndSendKeys(By.Id("passwordControl"), password);
+        Common.CloseSnackbarIfPresent(Driver);
 
-        // Fill the repeat password field (same as password)
-        registrationPage.ClickAndSendKeys(By.Id("repeatPasswordControl"), password);
+        
+        // Step 4: Submit the registration form (assuming there is a 'Register' button with an id of 'registerButton'
+     
+        Common.WaitAndClickElement(Driver, By.XPath("//*[@id='registerButton']/span[1]"));
 
-        registrationPage.ClickToggleWithWait(By.XPath("//*[@id='mat-slide-toggle-1-input']"));
-
-
-        // Select a security question (if applicable, you might need to adjust this based on the dropdown)
-        registrationPage.ClickAndKeys(By.XPath("//*[@id='mat-select-0']"), Keys.Tab);
-
-        // Fill the security answer field
-        registrationPage.ClickAndSendKeys(By.Id("securityAnswerControl"), securityAnswer);
-
-        new WebDriverWait(Driver, TimeSpan.FromSeconds(20))
-        .Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("mat-simple-snack-bar-content")));
-
-        var registerButton = new WebDriverWait(Driver, TimeSpan.FromSeconds(10))
-        .Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id='registerButton']/span[1]")));
-
-        // Step 4: Submit the registration form (assuming there is a 'Register' button with an id of 'registerButton')
-
-        registerButton.Click();
+        
 
         // Step 5: Assert the successful registration
 
         //Wait for successful registration message or redirection (You may need to adjust the success message element)
-        var successMessage = new WebDriverWait(Driver, TimeSpan.FromSeconds(10))
-        .Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[contains(text(),'Registration completed successfully')]")));
+
+        string successMessage= Common.WaitAndGetText(Driver, By.XPath("//*[contains(text(),'Registration completed successfully')]"));
 
         // Assert that the success message is displayed
-        ClassicAssert.IsTrue(successMessage.Displayed, "Registration successful message was not displayed.");
+        ClassicAssert.IsTrue(!string.IsNullOrEmpty(successMessage), "Registration successful message was not displayed.");
 
         // Optional: Assert that the URL is now the login page (you may need to adjust the URL or validation criteria)
         ClassicAssert.IsTrue(Driver.Url.Contains("login"), "After registration, user was not redirected to the login page.");

@@ -11,10 +11,10 @@ public class Task2Tests : BaseTest
     [Test]
     public void VerifyPopupAndImageForProduct()
     {
-        var homePage = new HomePage(Driver);
         Driver.Navigate().GoToUrl(TestData.BaseUrl);
-        Common.CloseSnackbarIfPresent(Driver);
         homePage.DismissWelcomeBannerIfPresent();
+        Common.CloseSnackbarIfPresent(Driver);
+        Common.DisMissCookieButtonPresent(Driver);
 
         //script click on the first product ‘Apple Juice’ then assert that there is an popup appeared and image
         //of product exists.

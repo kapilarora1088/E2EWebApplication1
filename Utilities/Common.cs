@@ -55,9 +55,6 @@ namespace Utilities
                 new WebDriverWait(driver, TimeSpan.FromSeconds(20))
                 .Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("mat-simple-snack-bar-content")));
 
-                // Find and click the close button (assuming it has a class or other identifying attribute)
-                /*IWebElement closeButton = driver.FindElement(By.XPath("//*[@id='cdk-overlay-6']/snack-bar-container/div/div/simple-snack-bar/button"));
-                closeButton.Click();*/
             }
             catch (NoSuchElementException)
             {
@@ -68,5 +65,13 @@ namespace Utilities
                 // Snackbar did not appear within the timeout, do nothing
             }
         }
+
+        public static void DisMissCookieButtonPresent(IWebDriver driver)
+        {
+            WaitAndClickElement(driver, By.XPath("//a[@aria-label='dismiss cookie message']"));
+        }
+
+
+        
     }
 }

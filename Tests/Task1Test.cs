@@ -11,9 +11,10 @@ public class Task1Test : BaseTest
     {
         Driver.Navigate().GoToUrl(TestData.BaseUrl);
         var homePage = new HomePage(Driver);
-
+       
         homePage.DismissWelcomeBannerIfPresent();
         Common.CloseSnackbarIfPresent(Driver);
+        Common.DisMissCookieButtonPresent(Driver);
         homePage.ScrollToBottom();
         
         homePage.ChangeItemsPerPage();

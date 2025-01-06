@@ -13,10 +13,10 @@ public class HomePage
     }
 
     // Locator for the mat-select dropdown (by its role or id)
-    private IWebElement ItemsPerPageDropdown => _driver.FindElement(By.XPath("//*[@id='mat-select-0']"));
+    private IWebElement ItemsPerPageDropdown => _driver.FindElement(By.XPath("//*[@class='mat-select-arrow ng-tns-c30-9']"));
 
     // Locator for the option with text '48' inside the dropdown
-    private IWebElement Option48 => _driver.FindElement(By.XPath("//*[@id='mat-option-3']"));
+    private IWebElement Option48 => _driver.FindElement(By.XPath("//*[@class='mat-option-text' and contains(text(),'48')]"));
     private IWebElement ScrollElement => _driver.FindElement(By.XPath("//*[ text() = ' Items per page: ']"));
 
     // Locator for the items displayed on the page (replace with the correct selector for case)

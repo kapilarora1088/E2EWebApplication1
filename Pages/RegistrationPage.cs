@@ -82,6 +82,27 @@ public class RegistrationPage
 
     }
 
+    public void ClickAndSendKeysTab(By locator, string value, bool sendTab = true)
+    {
+        var element = new WebDriverWait(Driver, TimeSpan.FromSeconds(10))
+            .Until(ExpectedConditions.ElementToBeClickable(locator));
+
+        if (element != null && element.Displayed && element.Enabled)
+        {
+            element.Click();
+            element.SendKeys(value);
+
+            if (sendTab)
+            {
+                element.SendKeys(Keys.Tab); // Move focus away to trigger validation (optional)
+            }
+        }
+        else
+        {
+            Console.WriteLine($"Element with locator '{locator.ToString()}' is either not visible or not interactable.");
+        }
+    }
+
 
     public void ClickToggleWithWait(By toggleLocator)
     {
@@ -121,6 +142,32 @@ public class RegistrationPage
         Driver.FindElement(By.XPath("//*[@id='mat-select-0']")).SendKeys(Keys.Escape);
         Driver.FindElement(By.Id("securityAnswerControl")).SendKeys("");
         Driver.FindElement(By.Id("securityAnswerControl")).SendKeys(Keys.Tab);
+    }
+
+    public void FillRegistrationForm(string email, string password, string securityAnswer)
+    {
+        ClickAndSendKeysTab(Locators.RegistrationPage.EmailField, email);
+        ClickAndSendKeysTab(Locators.RegistrationPage.PasswordField, password);
+        ClickAndSendKeysTab(Locators.RegistrationPage.RepeatPasswordField, password);
+        ClickToggleWithWait(Locators.RegistrationPage.TermsCheckbox); // Assuming terms checkbox
+
+        // Select security question (adjust XPath if needed)
+        ClickAndKeys(Locators.RegistrationPage.SecurityQuestionDropdown, Keys.Tab);
+
+        ClickAndSendKeysTab(Locators.RegistrationPage.SecurityAnswerField, securityAnswer);
+    }
+
+    public void FillRegistrationForm1(string email = "", string password = "", string securityAnswer = "")
+    {
+        ClickAndSendKeysTab(Locators.RegistrationPage.EmailField, email);
+        ClickAndSendKeysTab(Locators.RegistrationPage.PasswordField, password);
+        ClickAndSendKeysTab(Locators.RegistrationPage.RepeatPasswordField, password);
+        ClickToggleWithWait(Locators.RegistrationPage.TermsCheckbox); // Assuming terms checkbox
+
+        // Select security question (adjust XPath if needed) - Assuming Escape key works for clearing the dropdown
+        ClickAndKeys(Locators.RegistrationPage.SecurityQuestionDropdown, Keys.Escape);
+
+        ClickAndSendKeysTab(Locators.RegistrationPage.SecurityAnswerField, securityAnswer);
     }
 
 
