@@ -2,7 +2,19 @@
 
 public class Locators
 {
-    public static class CommonSnackBar
+
+    public static class HomePageLocators
+    {
+        public static By WelcomeBanner { get; } = By.XPath("//*[@id='mat-dialog-0']");
+        public static By WelcomeBannerCloseButton { get; } = By.XPath("//*[@id='mat-dialog-0']/app-welcome-banner/div/div[2]/button[2]/span[1]/span");
+        public static By ScrollElement { get; } = By.XPath("//*[ text() = ' Items per page: ']");
+        public static By ItemsOnPage { get; } = By.CssSelector(".mat-grid-tile");
+        public static By ItemsPerPageDropdown { get; } = By.XPath("//*[@id='mat-select-value-1']"); // Assuming this is the correct locator for the dropdown
+
+        public static By ItemsPerPageOption48 { get; } = By.XPath("//*[@class='mat-option-text' and contains(text(),'48')]"); // Assuming this is the correct locator for the dropdown 
+        public static By PaginatorRangeLabel = By.XPath("//*[@class='mat-paginator-range-label']");
+    }
+        public static class CommonSnackBar
     {
         public static By SuccessPopup = By.CssSelector(".mat-simple-snack-bar-content");
     }

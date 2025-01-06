@@ -3,6 +3,7 @@ using OpenQA.Selenium.Support.UI;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Utilities;
+using static Locators;
 
 public class HomePage
 {
@@ -16,7 +17,6 @@ public class HomePage
     
 
     // Locator for the option with text '48' inside the dropdown
-   // private IWebElement Option48 => _driver.FindElement(By.XPath("//*[@class='mat-option-text' and contains(text(),'48')]"));
     private IWebElement ScrollElement => _driver.FindElement(By.XPath("//*[ text() = ' Items per page: ']"));
 
     // Locator for the items displayed on the page (replace with the correct selector for case)
@@ -24,7 +24,7 @@ public class HomePage
 
 
     // Locator for the paginator range label
-    private IWebElement PaginatorRangeLabel => _driver.FindElement(By.XPath("//*[@class='mat-paginator-range-label']"));
+  
 
 
     // Method to dismiss any alert present
@@ -35,13 +35,9 @@ public class HomePage
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 
             // Wait for the welcome banner to be visible
-            IWebElement banner = wait.Until(drv => drv.FindElement(By.XPath("//*[@id='mat-dialog-0']")));  // Locator for banner
+            IWebElement banner = wait.Until(drv => drv.FindElement(HomePageLocators.WelcomeBanner));
 
-            // Wait for the close button to be clickable
-            IWebElement closeButton = wait.Until(drv => drv.FindElement(By.XPath("//*[@id='mat-dialog-0']/app-welcome-banner/div/div[2]/button[2]/span[1]/span")));  // Locator for close button
-
-            // Click the close button to dismiss the banner
-            closeButton.Click();
+            Common.WaitAndClickElement(_driver, HomePageLocators.WelcomeBannerCloseButton);
             Console.WriteLine("Welcome banner dismissed.");
         }
         catch (WebDriverTimeoutException)
@@ -61,33 +57,30 @@ public class HomePage
 
     public void ChangeItemsPerPage()
     {
-       
-        Common.WaitAndClickElement(_driver, By.XPath("//*[@id='mat-select-value-1']"));
-        // Wait for the dropdown options to appear (wait for the <mat-option> to be visible)
-     
-        Common.WaitAndClickElement(_driver, By.XPath("//*[@class='mat-option-text' and contains(text(),'48')]"));
+        Common.WaitAndClickElement(_driver, HomePageLocators.ItemsPerPageDropdown);
 
-        // Click on the option with text '48'
-     
+        // Wait for the dropdown options to appear (wait for the <mat-option> to be visible)
+        Common.WaitAndClickElement(_driver, HomePageLocators.ItemsPerPageOption48);
     }
+
     public int GetNumberOfItemsOnPage()
     {
         // Wait for the items to be loaded on the page after selecting 48 items per page
         WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-        wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.CssSelector(".mat-grid-tile")));
+        wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(HomePageLocators.ItemsOnPage));
 
         // Return the number of items visible on the page
-        return ItemsOnPage.Count;
+        return _driver.FindElements(HomePageLocators.ItemsOnPage).Count;
     }
 
     public int GetTextAfterOf()
     {
         // Wait for the paginator range label to be visible
         WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-        wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//*[@class='mat-paginator-range-label']")));
+        wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(HomePageLocators.PaginatorRangeLabel));
 
         // Get the full text (e.g., "1 - 48 of 100 items")
-        string text = PaginatorRangeLabel.Text;
+        string text = Common.WaitAndGetText(_driver, HomePageLocators.PaginatorRangeLabel);
 
         // Split the text by "of" and get the number after it
         string[] parts = text.Split(new string[] { "of" }, StringSplitOptions.None);

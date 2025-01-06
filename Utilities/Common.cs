@@ -71,7 +71,29 @@ namespace Utilities
             WaitAndClickElement(driver, By.XPath("//a[@aria-label='dismiss cookie message']"));
         }
 
+        public static void RetryWaitAndClickElement(IWebDriver driver, By locator, int timeoutInSeconds = 10, int retryCount = 2)
+        {
+            int attempts = 0;
+            while (attempts < retryCount)
+            {
+                try
+                {
+                    var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+                    var element = wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+                    element.Click();
+                    return; // Click successful, exit the loop
+                }
+                catch (StaleElementReferenceException)
+                {
+                    attempts++;
+                    Console.WriteLine($"Stale element exception on attempt {attempts}. Retrying...");
+                }
+            }
 
-        
+            // If all retries fail, throw the exception
+            throw new Exception($"Failed to click element after {retryCount} retries due to StaleElementReferenceException");
+        }
+
+
     }
 }

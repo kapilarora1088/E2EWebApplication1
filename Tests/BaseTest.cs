@@ -32,6 +32,6 @@ public class BaseTest
     [TearDown]
     public void TearDown()
     {
-        //Driver.Quit();
+        Driver.Quit();
     }
 }

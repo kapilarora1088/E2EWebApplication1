@@ -8,6 +8,7 @@ using Utilities;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using System.Linq;
+using OpenQA.Selenium.BiDi.Modules.BrowsingContext;
 
 [TestFixture]
 public class Task4Test : BaseTest
@@ -108,16 +109,12 @@ public class Task4Test : BaseTest
         _paymentPage.AddCreditCardDetails(name);
         Common.CloseSnackbarIfPresent(Driver);
 
-        //select the added credit card details
-        ((IJavaScriptExecutor)Driver).ExecuteScript("window.scrollTo(0, 0)");
+        // Find and click the close button (assuming it has a class or other identifying attribute)
+        IWebElement closeButton = Driver.FindElement(By.XPath("//*[@id='cdk-overlay-6']/snack-bar-container/div/div/simple-snack-bar/button"));
+        closeButton.Click();
+
+
         Common.WaitAndClickElement(Driver, Locators.CheckoutPageLocators.SelectCreditCardRadioButton);
-
-        /*// Find the element using WebDriverWait with ElementToBeClickable
-        var radioButtons = new WebDriverWait(Driver, TimeSpan.FromSeconds(10))
-            .Until(ExpectedConditions.ElementExists(By.XPath("//*[contains(@class, 'mat-ripple mat-radio-ripple mat-focus-indicator')]")));
-
-        // Select the first radio button (adjust index as needed)
-        radioButtons.Click();*/
 
         Common.WaitAndClickElement(Driver, Locators.CheckoutPageLocators.ContinueButtonOnDeliveryPage); 
 
