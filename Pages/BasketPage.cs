@@ -45,4 +45,6 @@ public class BasketPage
         // Return both initial and updated price for comparison
         return initialTotalPrice==updatedPrice;
     }
+
+
 }

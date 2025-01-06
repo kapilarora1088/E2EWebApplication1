@@ -19,7 +19,7 @@ public class Task2Tests : BaseTest
         //script click on the first product ‘Apple Juice’ then assert that there is an popup appeared and image
         //of product exists.
         // Click on the first product 'Apple Juice'
-        var productElement = Driver.FindElement(Locators.ProductPage.FirstItem);
+        var productElement = Driver.FindElement(Locators.ProductPageLocators.FirstItem);
         productElement.Click();
 
         WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));

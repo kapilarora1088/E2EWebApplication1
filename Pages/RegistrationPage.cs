@@ -146,28 +146,28 @@ public class RegistrationPage
 
     public void FillRegistrationForm(string email, string password, string securityAnswer)
     {
-        ClickAndSendKeysTab(Locators.RegistrationPage.EmailField, email);
-        ClickAndSendKeysTab(Locators.RegistrationPage.PasswordField, password);
-        ClickAndSendKeysTab(Locators.RegistrationPage.RepeatPasswordField, password);
-        ClickToggleWithWait(Locators.RegistrationPage.TermsCheckbox); // Assuming terms checkbox
+        ClickAndSendKeysTab(Locators.RegistrationPageLocators.EmailField, email);
+        ClickAndSendKeysTab(Locators.RegistrationPageLocators.PasswordField, password);
+        ClickAndSendKeysTab(Locators.RegistrationPageLocators.RepeatPasswordField, password);
+        ClickToggleWithWait(Locators.RegistrationPageLocators.TermsCheckbox); // Assuming terms checkbox
 
         // Select security question (adjust XPath if needed)
-        ClickAndKeys(Locators.RegistrationPage.SecurityQuestionDropdown, Keys.Tab);
+        ClickAndKeys(Locators.RegistrationPageLocators.SecurityQuestionDropdown, Keys.Tab);
 
-        ClickAndSendKeysTab(Locators.RegistrationPage.SecurityAnswerField, securityAnswer);
+        ClickAndSendKeysTab(Locators.RegistrationPageLocators.SecurityAnswerField, securityAnswer);
     }
 
     public void FillRegistrationForm1(string email = "", string password = "", string securityAnswer = "")
     {
-        ClickAndSendKeysTab(Locators.RegistrationPage.EmailField, email);
-        ClickAndSendKeysTab(Locators.RegistrationPage.PasswordField, password);
-        ClickAndSendKeysTab(Locators.RegistrationPage.RepeatPasswordField, password);
-        ClickToggleWithWait(Locators.RegistrationPage.TermsCheckbox); // Assuming terms checkbox
+        ClickAndSendKeysTab(Locators.RegistrationPageLocators.EmailField, email);
+        ClickAndSendKeysTab(Locators.RegistrationPageLocators.PasswordField, password);
+        ClickAndSendKeysTab(Locators.RegistrationPageLocators.RepeatPasswordField, password);
+        ClickToggleWithWait(Locators.RegistrationPageLocators.TermsCheckbox); // Assuming terms checkbox
 
         // Select security question (adjust XPath if needed) - Assuming Escape key works for clearing the dropdown
-        ClickAndKeys(Locators.RegistrationPage.SecurityQuestionDropdown, Keys.Escape);
+        ClickAndKeys(Locators.RegistrationPageLocators.SecurityQuestionDropdown, Keys.Escape);
 
-        ClickAndSendKeysTab(Locators.RegistrationPage.SecurityAnswerField, securityAnswer);
+        ClickAndSendKeysTab(Locators.RegistrationPageLocators.SecurityAnswerField, securityAnswer);
     }
 
 
